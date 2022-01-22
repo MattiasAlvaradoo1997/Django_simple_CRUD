@@ -1,0 +1,75 @@
+{% extends "./base.html" %}
+
+{% block title %}Gestión de usuarios{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-dismissible alert-success">
+            <strong class="text-dark">{{ message }}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}                 
+        <h2>Gestión de usuario</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="/registrarUsuario/" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" id="txtNombre" name="txtNombre" class="form-control" placeholder="Nombre" maxlength="50" required>
+                    </div>
+                    <div class="form-group py-2">
+                        <input type="text" id="txtApellido" name="txtApellido" class="form-control" placeholder="Apellido" maxlength="50" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="txtEmail" name="txtEmail" class="form-control" placeholder="E-mail" required>
+                    </div>
+                    <div class="form-group py-2">
+                        <input type="date" id="txtFecha" name="txtFecha" class="form-control" required>
+                    </div>
+                    <div class="form-group py-2">
+                        <button type="submit" class="btn btn-success btn-green text-white">Guardar</button>    
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <h1>Listado de usuarios</h1>
+        <div class="table-responsive py-4">
+            {% if usuarios %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>E-mail</th>
+                        <th>Fecha nacimiento</th>
+                        <th colspan="2">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for x in usuarios %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{x.id}}</td>
+                        <td>{{x.nombre}}</td>
+                        <td>{{x.apellido}}</td>
+                        <td>{{x.email}}</td>
+                        <td>{{x.fecha}}</td>
+                        <td><a href="edicionUsuario/{{x.id}}" class="btn btn-info">Editar</a></td>
+                        <td><a href="eliminarUsuario/{{x.id}}" class="btn btn-danger btnEliminacion">Eliminar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <h2>No hay registros</h2>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
