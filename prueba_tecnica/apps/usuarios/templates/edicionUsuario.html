@@ -1,0 +1,38 @@
+{% extends "./base.html" %}
+
+{% block title %}Gestión de usuarios{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        
+        <h2>Edición de usuario</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="/editarUsuario/" method="POST">{% csrf_token %}
+                    <div class="form-group py-2">
+                        <input type="text" id="txtID" value="{{usuario.id}}" name="txtID" class="form-control" placeholder="ID" maxlength="6" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtNombre" value="{{usuario.nombre}}" name="txtNombre" class="form-control" placeholder="Nombre" maxlength="50" required>
+                    </div>
+                    <div class="form-group py-2">
+                        <input type="text" id="txtApellido" value="{{usuario.apellido}}" name="txtApellido" class="form-control" placeholder="Apellido" maxlength="50" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="txtEmail" value="{{usuario.email}}" name="txtEmail" class="form-control" placeholder="E-mail" required>
+                    </div>
+                    <div class="form-group py-2">
+                        <input type="date" id="txtFecha" value="{{usuario.fecha}}" name="txtFecha" class="form-control" required>
+                    </div>
+                    <div class="form-group py-2">
+                        <button type="submit" class="btn btn-success btn-green text-white">Guardar</button>    
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
